@@ -8,7 +8,7 @@ const Header = () => {
         <img src="/images/crown.svg" alt="logo " />
       </div>
       {/* header section */}
-      <div className="sections font-bold flex flex-row space-x-8">
+      <div className="sections font-bold flex  flex-row space-x-8">
         <h2>Home</h2>
         <h2>Shop</h2>
         <h2>pages</h2>
