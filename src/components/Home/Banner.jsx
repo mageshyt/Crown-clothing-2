@@ -5,7 +5,7 @@ export const Banner = () => {
     <BannerContainer>
       {/* Image */}
       <div className="banner w-full ">
-        <div className="info hidden 2xl:block xl:block md:block absolute top-1/4 left-24 ">
+        <div className="info hidden 2xl:block xl:block lg:block md:block absolute top-1/4 left-24 ">
           <h2 className="text-2xl text-black">Winter Fasion</h2>
           <h2 className=" 2xl:text-5xl  xl:text-5xl lg:text-4xl md:text-4xl  w-96  font-black">
             Fashion Collection 2021

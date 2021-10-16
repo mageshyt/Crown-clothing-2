@@ -15,7 +15,7 @@ const Header = () => {
         <h2>Contact</h2>
       </div>
       {/* login and logo */}
-      <div className="login-section flex flex-row space-x-2 mr-4">
+      <div className="login-section flex flex-row space-x-2 mr-4 invisible md:visible">
         <h2 className="font-bold btn btn-md ">Sign up</h2>
       </div>
     </div>
