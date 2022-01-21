@@ -1,13 +1,18 @@
 import React from "react";
 import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
-const MenuItems = () => {
+import { withRouter } from "react-router";
+
+const MenuItems = ({ history }) => {
   return (
     <Container className="container mt-10  ">
-      <div className=""></div>
       {Directory_Data.map(({ title, size, imageUrl, id, linkUrl }) => {
         return (
-          <div key={id} className={`${size}  menu-item `}>
+          <div
+            onClick={() => history.push("/shop")}
+            key={id}
+            className={`${size}  menu-item `}
+          >
             <div
               className="background-image "
               style={{ backgroundImage: `url(${imageUrl})` }}
@@ -24,7 +29,7 @@ const MenuItems = () => {
   );
 };
 
-export default MenuItems;
+export default withRouter(MenuItems);
 const Container = styled.div`
   width: 100%;
   display: flex;

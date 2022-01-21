@@ -1,12 +1,17 @@
+import { Route } from "react-router-dom";
 import "./App.css";
-
-import Home from "./components/Home/Home";
+import Header from "./components/Home/Header";
+import HomePage from "./components/Screen/HomePage";
+import LoginPage from "./components/Screen/LoginPage";
+import ShopPage from "./components/Screen/ShopPage";
 function App() {
   return (
     <div className="App light">
-      <Home />
+      <Header />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/shop" component={ShopPage} />
+      <Route path="/signin" component={LoginPage} />
     </div>
   );
 }
-
 export default App;
