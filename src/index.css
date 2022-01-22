@@ -2,25 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* custom tailwind */
-
+body {
+  /* background-color: #121212; */
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   /* overflow: hidden; */
-}
-
-body {
-  background: #e5e7eb;
-}
-
-@layer components {
-  .center {
-    @apply flex items-center justify-center;
-  }
-  .signup {
-    @apply border py-1 cursor-pointer border-red-500 hover:bg-red-500 hover:text-white duration-100 ease-in-out w-6/12 text-red-500 center flex-row  gap-1;
-  }
 }
