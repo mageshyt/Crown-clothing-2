@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="">
       <Header />
-      <Banner />
+      {/* <Banne /> */}
       <div className="flex items-center justify-center">
         <MenuItems />
       </div>

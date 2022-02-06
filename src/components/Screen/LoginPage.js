@@ -1,7 +1,7 @@
 import React from "react";
 import SignIn from "../sigin/SignIn";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 const LoginPage = () => {
   return (
     <div className="">
@@ -11,4 +11,4 @@ const LoginPage = () => {
   );
 };
 
-export default withRouter(LoginPage);
+export default LoginPage;

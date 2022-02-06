@@ -7,6 +7,7 @@ const ShopPage = () => {
 
   return (
     <div className="bg-gray-200">
+      <Header />
       {collection.map(({ id, ...otherProps }) => (
         <CollectionPreview key={id} {...otherProps} />
       ))}

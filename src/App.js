@@ -1,11 +1,14 @@
 import "./App.css";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
+import ShopPage from "./components/Screen/ShopPage";
+import Header from "./components/Home/Header";
 function App() {
   return (
-    <div className="App light">
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/shop" element={<ShopPage />} />
+    </Routes>
   );
 }
 
