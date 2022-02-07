@@ -17,7 +17,6 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineFacebook } from "react-icons/md";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
-import { withRouter } from "react-router-dom";
 
 const style = {
   input: `outline-none font-bold w-full bg-transparent border-none`,
@@ -130,7 +129,7 @@ const SignIn = ({ setSignUp, handleSignUp, history }) => {
   );
 };
 
-export default withRouter(SignIn);
+export default SignIn;
 const SocialMediaContainer = styled.div``;
 
 const EmailContainer = styled.div``;

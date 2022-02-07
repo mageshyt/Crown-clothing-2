@@ -1,21 +1,21 @@
 import React from "react";
-import { withRouter } from "react-router";
+
 import { Link } from "react-router-dom";
 
 // import app from "../../firebase";
 import faker from "@faker-js/faker";
-import { signUp, useAuth, logout } from "../../firebase";
+import { useAuth, logout } from "../../firebase";
 import { AiOutlineSearch } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import Avatar from "./Avatar";
-import { BigHead } from "@bigheads/core";
+import { connect } from "react-redux";
+
 const style = {
   searchBarContainer: `bg-gray-200 w-full  focus:outline-none focus:border-gray-600 transition duration-150 ease-in-out`,
-  searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[520px] items-center bg-[#d8d8d8] rounded-[0.8rem] hover:bg-[#cecfd2]`,
+  searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[520px] items-center bg-gray-400 rounded-[0.8rem] hover:bg-[#cecfd2]`,
   searchInput: `h-[2.6rem] w-full border-0 bg-transparent outline-0 ring-0 px-2 pl-0 text-black placeholder:text-[#767676]`,
   searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
 };
-const Header = ({ history }) => {
+const Header = ({ mapStateToProps }) => {
   const currentUser = useAuth();
   // console.log(currentUser?.photoURL);
   const handelLogout = async () => {
@@ -26,17 +26,15 @@ const Header = ({ history }) => {
       alert(err);
     }
   };
-  // console.log("currentUser 👆", currentUser);
+
   const image = faker.image.avatar();
-  // console.log("image 👉", image);
-  // console.log("logo 👉", currentUser?.photoURL);
 
   return (
     <div className="flex items-center justify-between h-14 bg-gray-200">
       {/* Logo and left*/}
       <div
         className="logo-image ml-4 cursor-pointer "
-        onClick={() => history.push("/")}
+        // onClick={() => history.push("/")}
       >
         <img src="/images/crown.svg" alt="logo " />
       </div>
@@ -84,4 +82,9 @@ const SearchBar = () => (
   </div>
 );
 
-export default Header;
+const mapStateToProps = (state) => ({
+  // ! we are setting the currentUser to the state
+  mapStateToProps: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);

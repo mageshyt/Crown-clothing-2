@@ -1,7 +1,6 @@
 import React from "react";
 import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
-import { withRouter } from "react-router";
 
 const MenuItems = ({ history }) => {
   return (
@@ -9,7 +8,7 @@ const MenuItems = ({ history }) => {
       {Directory_Data.map(({ title, size, imageUrl, id, linkUrl }) => {
         return (
           <div
-            onClick={() => history.push("/shop")}
+            // onClick={() => history.push("/shop")}
             key={id}
             className={`${size}  menu-item `}
           >
@@ -29,7 +28,7 @@ const MenuItems = ({ history }) => {
   );
 };
 
-export default withRouter(MenuItems);
+export default MenuItems;
 const Container = styled.div`
   width: 100%;
   display: flex;
