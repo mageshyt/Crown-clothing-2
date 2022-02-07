@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 const CollectionItems = ({ imageUrl, price, name }) => {
-  console.log(imageUrl);
+  // console.log(imageUrl);
   return (
     <Container className=" cursor-pointer   flex items-center flex-col">
       <div

@@ -32,11 +32,14 @@ const Header = ({ mapStateToProps }) => {
   return (
     <div className="flex items-center justify-between h-14 bg-gray-200">
       {/* Logo and left*/}
+
       <div
         className="logo-image ml-4 cursor-pointer "
         // onClick={() => history.push("/")}
       >
-        <img src="/images/crown.svg" alt="logo " />
+        <Link to="/">
+          <img src="/images/crown.svg" alt="logo " />
+        </Link>
       </div>
       {/* searchbar middle */}
       <SearchBar />
