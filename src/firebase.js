@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  signOut,
 } from "firebase/auth";
 // get fire store
 import { getFirestore } from "firebase/firestore";
@@ -30,15 +31,25 @@ const analytics = getAnalytics(app);
 const signUp = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
+// ! login with google
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
-    .then((re) => console.log(re))
+    .then((re) => console.log("successfully signed in with google", re))
     .catch((err) => {
       console.log(err);
     });
 };
+// ! login with mail and password
+const login = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
 
+// ! log out
+
+const logout = () => {
+  return signOut(auth);
+};
 // ! custom hook to get current user
 const useAuth = () => {
   const [currentUser, currentUserSet] = React.useState(null);
@@ -57,4 +68,14 @@ const useAuth = () => {
   return currentUser;
 };
 
-export { app, auth, firebase, useAuth, signInWithGoogle, analytics, signUp };
+export {
+  app,
+  auth,
+  logout,
+  firebase,
+  useAuth,
+  signInWithGoogle,
+  analytics,
+  signUp,
+  login,
+};

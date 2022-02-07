@@ -1,41 +1,86 @@
 import React from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 // import app from "../../firebase";
-import { signUp } from "../../firebase";
-
+import faker from "@faker-js/faker";
+import { signUp, useAuth, logout } from "../../firebase";
+import { AiOutlineSearch } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import Avatar from "./Avatar";
+import { BigHead } from "@bigheads/core";
+const style = {
+  searchBarContainer: `bg-gray-200 w-full  focus:outline-none focus:border-gray-600 transition duration-150 ease-in-out`,
+  searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[520px] items-center bg-[#d8d8d8] rounded-[0.8rem] hover:bg-[#cecfd2]`,
+  searchInput: `h-[2.6rem] w-full border-0 bg-transparent outline-0 ring-0 px-2 pl-0 text-black placeholder:text-[#767676]`,
+  searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
+};
 const Header = ({ history }) => {
+  const currentUser = useAuth();
+  console.log(currentUser?.photoURL);
+  const handelLogout = async () => {
+    try {
+      await logout();
+      console.log("logout");
+    } catch (err) {
+      alert(err);
+    }
+  };
+  const image = faker.image.avatar();
+  console.log("image 👉", image);
+  console.log("logo 👉", currentUser?.photoURL);
+
   return (
     <div className="flex items-center justify-between h-14 bg-gray-200">
-      {/* Logo */}
+      {/* Logo and left*/}
       <div
         className="logo-image ml-4 cursor-pointer "
         onClick={() => history.push("/")}
       >
         <img src="/images/crown.svg" alt="logo " />
       </div>
+      {/* searchbar middle */}
+      <SearchBar />
       {/* header section */}
-      <div className="sections font-bold flex text-lg  flex-row space-x-8">
-        <h2>Home</h2>
-        <h2>Shop</h2>
-        <h2>pages</h2>
-        <h2>Contact</h2>
-      </div>
-      {/* login and logo */}
-      <div
-        // onClick={siginWithGoogle()}
-        className="login-section flex flex-row space-x-2 mr-4  sm:visible "
-      >
-        {/* onclick it push to sign in  page*/}
-        <h2
-          onClick={() => history.push("/signin")}
-          className="font-bold btn btn-sm "
-        >
-          Login in
-        </h2>
+      <div className="sections font-bold flex text-lg mr-2 items-center   flex-row space-x-8">
+        {/* list */}
+        <div className="flex hidden md:inline-flex space-x-2">
+          <Link to="/">
+            <h2>Home</h2>
+          </Link>
+          <Link to="/shop">
+            <h2>Shop</h2>
+          </Link>
+          <Link to="/contact">
+            <h2>Contact</h2>
+          </Link>
+        </div>
+        {/* login and logo */}
+        <div className="login-section  flex flex-row   sm:visible ">
+          {/* onclick it push to sign in  page*/}
+          {!currentUser ? (
+            <Link to="/signin">
+              <CgProfile className="text-3xl text-gray-600 cursor-pointer" />
+            </Link>
+          ) : (
+            <img
+              src={currentUser?.photoURL || image}
+              onClick={handelLogout}
+              className="h-10 cursor-pointer w-10 rounded-full"
+              alt="profile"
+            />
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default withRouter(Header);
+const SearchBar = () => (
+  <div className={style.searchBar}>
+    <AiOutlineSearch className={style.searchBarIcon} />
+    <input className={style.searchInput} type="text" placeholder="Search" />
+  </div>
+);
+
+export default Header;

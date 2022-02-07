@@ -4,7 +4,14 @@ import Header from "./components/Home/Header";
 import HomePage from "./components/Screen/HomePage";
 import LoginPage from "./components/Screen/LoginPage";
 import ShopPage from "./components/Screen/ShopPage";
-function App() {
+import { useAuth } from "./firebase";
+import { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+function App({ history }) {
+  const currentUser = useAuth();
+  useEffect(() => {
+    history.push("/");
+  }, [currentUser]);
   return (
     <div className="App light">
       <Header />
@@ -14,4 +21,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default withRouter(App);

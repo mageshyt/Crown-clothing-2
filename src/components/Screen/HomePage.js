@@ -4,10 +4,10 @@ import Header from "../Home/Header";
 import MenuItems from "../Home/MenuItems";
 const HomePage = () => {
   return (
-    <div className="">
+    <div className="h-screen">
       {/* <Header /> */}
 
-      <Banner />
+      {/* <Banner /> */}
       <div className="flex items-center justify-center">
         <MenuItems />
       </div>

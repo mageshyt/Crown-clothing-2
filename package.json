@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bigheads/core": "^0.3.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
@@ -11,6 +12,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "daisyui": "^1.14.4",
+    "faker": "^6.6.6",
     "firebase": "^9.6.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -45,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0-alpha.5",
     "@tailwindcss/jit": "^0.1.18"
   }
 }
