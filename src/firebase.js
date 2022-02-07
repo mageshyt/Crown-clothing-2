@@ -11,7 +11,15 @@ import {
   signOut,
 } from "firebase/auth";
 // get fire store
-import { getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+} from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBYczDQOU-FTzMipU7o2q4bZpE9VrbwhIE",
   authDomain: "crown-clothing-2-3ed7e.firebaseapp.com",
@@ -24,7 +32,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const firebase = getFirestore(app);
+const db = getFirestore(app);
 const auth = getAuth();
 
 const analytics = getAnalytics(app);
@@ -68,14 +76,55 @@ const useAuth = () => {
   return currentUser;
 };
 
+const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = doc(db, `user`, userAuth.uid);
+  const snapShot = await getDoc(userRef);
+  const collectionRef = collection(db, `user`);
+
+  console.log(snapShot.exists());
+  //! if snapShot does not exist then created a new user
+  if (!snapShot.exists()) {
+    const { displayName, email } = userAuth;
+    // console.log({ displayName, email });
+    const createdAt = new Date();
+    console.log("additionalData", additionalData);
+    try {
+      await addDoc(collectionRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+      // await collection(db, "user")
+      //   .doc(userAuth.uid)
+      //   .set({
+      //     displayName,
+      //     email,
+      //     createdAt,
+      //     ...additionalData,
+      //   });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  } else {
+    console.log("the user already exists");
+  }
+  // console.log("succesfully done 😀");
+  // console.log(userRef);
+  console.log("id", userAuth.uid); // const snapShot = await
+  return userRef;
+};
+// createUserProfileDocument(auth/);
 export {
   app,
   auth,
   logout,
-  firebase,
+  db,
   useAuth,
   signInWithGoogle,
   analytics,
   signUp,
   login,
+  createUserProfileDocument,
 };

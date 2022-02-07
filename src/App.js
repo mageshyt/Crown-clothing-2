@@ -7,9 +7,12 @@ import ShopPage from "./components/Screen/ShopPage";
 import { useAuth } from "./firebase";
 import { useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { createUserProfileDocument } from "./firebase";
 function App({ history }) {
   const currentUser = useAuth();
+
   useEffect(() => {
+    // createUserProfileDocument(currentUser);
     history.push("/");
   }, [currentUser]);
   return (

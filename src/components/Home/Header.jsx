@@ -17,7 +17,7 @@ const style = {
 };
 const Header = ({ history }) => {
   const currentUser = useAuth();
-  console.log(currentUser?.photoURL);
+  // console.log(currentUser?.photoURL);
   const handelLogout = async () => {
     try {
       await logout();
@@ -26,9 +26,10 @@ const Header = ({ history }) => {
       alert(err);
     }
   };
+  // console.log("currentUser 👆", currentUser);
   const image = faker.image.avatar();
-  console.log("image 👉", image);
-  console.log("logo 👉", currentUser?.photoURL);
+  // console.log("image 👉", image);
+  // console.log("logo 👉", currentUser?.photoURL);
 
   return (
     <div className="flex items-center justify-between h-14 bg-gray-200">

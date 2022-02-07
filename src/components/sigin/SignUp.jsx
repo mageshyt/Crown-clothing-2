@@ -7,13 +7,13 @@ import {
   PencilAltIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
-import { signInWithGoogle, signUp, useAuth } from "../../firebase";
+import { createUserProfileDocument, signUp, useAuth } from "../../firebase";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineFacebook } from "react-icons/md";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 const style = {
-  input: `outline-none w-full bg-gray-200  border-none`,
+  input: `outline-none w-full bg-gray-200 font-bold border-none`,
   inputContainer: `w-full p-2 max-w-[400px]  bg-gray-200   h-[55px]  my-4 rounded-full flex items-center `,
   socialIcon: `h-8 cursor-pointer  w-8 text-gray-600`,
   social: `border-[2px] rounded-full m-2 border-gray-900 p-1`,
@@ -23,7 +23,9 @@ const SignUp = () => {
   // * use ref to get user mail and password
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
+  const displayName = React.createRef();
   const [loading, setLoading] = React.useState(false);
+  const currentUser = useAuth();
   async function handleSignUp() {
     // ! it it was empty then we will not sign up
     setLoading(true);
@@ -31,10 +33,19 @@ const SignUp = () => {
     try {
       await signUp(emailRef.current.value, passwordRef.current.value);
     } catch {
+      console.log({
+        emailRef: emailRef.current.value,
+        passwordRef: passwordRef.current.value,
+      });
       alert("Error!");
     }
     setLoading(false);
+    await createUserProfileDocument(await currentUser);
   }
+  React.useEffect(() => {
+    const Name = displayName.current.value;
+    createUserProfileDocument(currentUser, { displayName: Name });
+  }, [currentUser]);
   return (
     <div className="flex items-center justify-center w-full">
       <form
@@ -50,6 +61,7 @@ const SignUp = () => {
             type="text"
             name="userName"
             placeholder="username"
+            ref={displayName}
           />
         </UserContainer>
 
