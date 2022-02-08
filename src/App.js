@@ -10,7 +10,8 @@ import { useEffect } from "react";
 import { createUserProfileDocument } from "./firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user reducer/user.action";
-function App({ setCurrentUser, user }) {
+import CheckOutPage from "./components/Screen/CheckOutPage";
+function App({ setCurrentUser }) {
   const currentUser = useAuth();
   setCurrentUser(currentUser);
   useEffect(() => {
@@ -30,6 +31,7 @@ function App({ setCurrentUser, user }) {
           path="/signin"
           render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
         />
+        <Route path="/checkout" component={CheckOutPage} />
       </Switch>
 
       {/* </Routes> */}
@@ -37,9 +39,9 @@ function App({ setCurrentUser, user }) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.user.currentUser,
-});
+// const mapStateToProps = ({ user }) => ({
+//   currentUser: user.user.currentUser,
+// });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });

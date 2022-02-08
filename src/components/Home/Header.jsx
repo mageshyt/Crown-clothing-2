@@ -90,7 +90,10 @@ const SearchBar = () => (
   </div>
 );
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+const mapStateToProps = ({
+  user: { currentUser },
+  cart: { hidden, cartItems },
+}) => ({
   // ! we are setting the currentUser to the state
   currentUser,
   hidden,

@@ -7,13 +7,14 @@ import { toggleCartHidden } from "../../../redux/cart/cart.action";
 const styles = {
   CartIconContainer: "w-10 h-10 relative center text-gray-900 cursor-pointer ",
   shoppingIcon: "w-10 h-10",
-  Count: "absolute text-md font-bold bottom-[3px]",
+  Count: "absolute text-[16px] font-semibold bottom-[1px]",
 };
-const CartIcon = ({ toggleCartHidden }) => {
+const CartIcon = ({ toggleCartHidden, itemCount }) => {
+  console.log("count 🔄", itemCount);
   return (
     <Container onClick={toggleCartHidden} className={styles.CartIconContainer}>
       <RiShoppingBagLine className={styles.shoppingIcon} />
-      <span className={styles.Count}>0</span>
+      <span className={styles.Count}>{itemCount}</span>
     </Container>
   );
 };
@@ -21,6 +22,10 @@ const CartIcon = ({ toggleCartHidden }) => {
 const mapDispatchToProps = (dispatch) => ({
   toggleCartHidden: () => dispatch(toggleCartHidden()),
 });
-export default connect(null, mapDispatchToProps)(CartIcon);
+
+const mapStateToProps = ({ cart: { cartItems } }) => ({
+  itemCount: cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
 
 const Container = styled.div``;

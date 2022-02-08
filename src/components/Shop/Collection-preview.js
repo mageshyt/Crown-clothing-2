@@ -11,8 +11,8 @@ const CollectionPreview = ({ title, items }) => {
       <div className="preview-items flex flex-row   justify-around mt-10 mb-2">
         {items
           .filter((item, idx) => idx < 4)
-          .map(({ id, ...otherProps }) => (
-            <CollectionItems key={id} {...otherProps} />
+          .map((item) => (
+            <CollectionItems key={item.id} item={item} />
           ))}
       </div>
     </Container>
