@@ -10,10 +10,12 @@ import { CgProfile } from "react-icons/cg";
 import { connect } from "react-redux";
 import CartIcon from "../Shop/Cart/CartIcon";
 import Cart_Drop_Down from "../Shop/Cart/Cart_Drop_Down";
-
+import { selectCurrentUser } from "../../redux/user reducer/ser.selector";
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../Shop/Cart/card.selector";
 const style = {
   searchBarContainer: `bg-gray-200 w-full  focus:outline-none focus:border-gray-600 transition duration-150 ease-in-out`,
-  searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[400px] items-center bg-gray-400 rounded-[0.8rem] hover:bg-[#cecfd2]`,
+  searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[400px] items-center bg-[#cecfd2] rounded-[0.8rem] hover:bg-[#bfbfc1]`,
   searchInput: `h-[2.6rem] w-full border-0 bg-transparent outline-0 ring-0 px-2 pl-0 text-black placeholder:text-[#767676]`,
   searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
 };
@@ -32,7 +34,7 @@ const Header = ({ hidden, currentUser }) => {
   const image = faker.image.avatar();
 
   return (
-    <div className="flex  items-center justify-between h-14 bg-gray-200">
+    <div className="flex   items-center justify-between h-14 bg-gray-200">
       {/* Logo and left*/}
 
       <div
@@ -90,14 +92,12 @@ const SearchBar = () => (
   </div>
 );
 
-const mapStateToProps = ({
-  user: { currentUser },
-  cart: { hidden, cartItems },
-}) => ({
-  // ! we are setting the currentUser to the state
-  currentUser,
-  hidden,
-});
+const mapStateToProps = (state) =>
+  createStructuredSelector({
+    // ! we are setting the currentUser to the state
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden,
+  });
 
 export default connect(mapStateToProps)(Header);
 
