@@ -1,16 +1,25 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { withRouter } from "react-router-dom";
 
-const ContactPage = () => {
-  const notify = () => toast.success("Successfully toasted!");
+const ContactPage = ({ history }) => {
+  // const notify = () => toast.success("Successfully toasted!");
   return (
     <div className="h-screen center">
-      <button className="text-3xl font-bold" onClick={notify}>
-        Make me a toast
-      </button>
-      <Toaster position="top-center" reverseOrder={false} />
+      {/* {toast(() => (
+        <div className="flex  items-center space-x-3">
+          <span className="font-semibold">You have to sign in first</span>
+          <button
+            className="p-2 bg-purple-500 text-white rounded-lg font-bold"
+            onClick={() => history.push("/signin")}
+          >
+            sign In
+          </button>
+        </div>
+      ))}
+      <Toaster /> */}
     </div>
   );
 };
 
-export default ContactPage;
+export default withRouter(ContactPage);

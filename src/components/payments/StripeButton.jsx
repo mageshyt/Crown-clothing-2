@@ -3,9 +3,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { connect } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { createStructuredSelector } from "reselect";
+import { order_completed } from "../../redux/cart/cart.action";
 import { selectCartTotal } from "../Shop/Cart/card.selector";
 
-const StripeButton = ({ totalPrice }) => {
+const StripeButton = ({ totalPrice, order_completed }) => {
   const priceForStripe = totalPrice * 100;
 
   const publishableKey =
@@ -14,6 +15,11 @@ const StripeButton = ({ totalPrice }) => {
   // ! payments successfull
   const paymentsSuccessfull = () => {
     toast.success("Payment Successful !");
+    // ! dispatch the action
+    //! after payment successfull clear the cart
+    setTimeout(() => {
+      order_completed();
+    }, 1000);
   };
   return (
     <div>
@@ -37,4 +43,8 @@ const StripeButton = ({ totalPrice }) => {
 const mapStateToProps = createStructuredSelector({
   totalPrice: selectCartTotal,
 });
-export default connect(mapStateToProps)(StripeButton);
+const mapDispatchToProps = (dispatch) => ({
+  order_completed: () => dispatch(order_completed(dispatch)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StripeButton);

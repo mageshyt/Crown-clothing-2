@@ -35,6 +35,13 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           (cartItem) => cartItem.id !== action.payload.id
         ),
       };
+    // ! order completed
+    case CartActionTypes.ORDER_COMPLETED:
+      return {
+        ...state,
+        cartItems: [],
+      };
+
     default:
       return state;
   }

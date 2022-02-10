@@ -12,8 +12,11 @@ import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import StripeButton from "../payments/StripeButton";
+import toast, { Toaster } from "react-hot-toast";
+import { withRouter } from "react-router-dom";
+import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 const style = {
-  image: "h-[150px] w-[150px] ",
+  image: "h-[190px] w-[160px] ",
   cartItem: "flex   lg:w-[55%] w-[80%]  text-lg font-bold items-center",
 };
 const CheckOutPage = ({
@@ -22,9 +25,27 @@ const CheckOutPage = ({
   addItem,
   removeItem,
   clearItemFromCart,
+  history,
+  currentUser,
 }) => {
+  console.log("currentUser", currentUser);
   const [Animation, setAnimation] = useState(false);
   const [Active, setActive] = useState();
+  const SignInCheckout = () => {
+    if (currentUser === null) {
+      toast((t) => (
+        <div className="flex  items-center space-x-3">
+          <span className="font-semibold">You have to sign in first</span>
+          <button
+            className="p-2 bg-purple-500 text-white rounded-lg font-bold"
+            onClick={() => history.push("/signin")}
+          >
+            sign In
+          </button>
+        </div>
+      ));
+    }
+  };
   // console.log({ Active });
   return (
     <Container className=" checkout h-screen flex items-center pt-[10px] flex-col bg-white ">
@@ -35,6 +56,7 @@ const CheckOutPage = ({
         <div className="flex-[2]">Price</div>
         <div className="flex-[1]">Remove</div>
       </div>
+      <Toaster reverseOrder={false} />
       <div className="divider lg:w-[65%] w-[85%]" />
       {cartItems.map((cartItem) => (
         <div
@@ -48,7 +70,7 @@ const CheckOutPage = ({
         >
           {/* Image */}
           <div className="flex-[5] mb-4  ">
-            <div className=" w-[155px]  shadow-lg h-[155px]">
+            <div className=" w-[190px] mb-10   h-[195px]">
               {<img className={style.image} src={cartItem.imageUrl} alt="" />}
             </div>
           </div>
@@ -97,15 +119,35 @@ const CheckOutPage = ({
         Total : {totalPrice} $
       </h1>
       {/* Warning */}
-      <div className="mt-4 text-xl font-medium md:text-2xl text-center text-red-500">
-        *Please use the following test credit card for payments*
-        <br />
-        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
-      </div>
-      {/* Payment  */}
-      <div className="pb-10 mt-4">
-        <StripeButton />
-      </div>
+      {totalPrice > 0 ? (
+        <div>
+          <div className="mt-4 text-xl font-medium md:text-2xl text-center text-red-500">
+            *Please use the following test credit card for payments*
+            <br />
+            5555 5555 5555 4444 - Exp: 01/20 - CVV: 123
+          </div>
+          <div className="pb-10 flex justify-center  mt-4">
+            {currentUser === null ? (
+              <div>
+                <span
+                  className="font-bold bg-blue-400 p-2 text-white rounded-lg cursor-pointer"
+                  onClick={SignInCheckout}
+                >
+                  PayNow
+                </span>
+              </div>
+            ) : (
+              <StripeButton price={totalPrice} />
+            )}
+
+            {/* <StripeButton price={totalPrice} /> */}
+
+            {/* <StripeButton /> */}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };
@@ -114,6 +156,7 @@ const mapStateToProps = (state) =>
   createStructuredSelector({
     cartItems: selectCartItems,
     totalPrice: selectCartTotal,
+    currentUser: selectCurrentUser,
   });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -122,15 +165,15 @@ const mapDispatchToProps = (dispatch) => ({
   clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CheckOutPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CheckOutPage));
 
 const Container = styled.div`
   .item {
     animation: removed-item-animation 2.5s cubic-bezier(0.65, -0.02, 0.72, 0.29);
   }
-  /*
-    Snippet @keyframe openspace source: http://css-tricks.com/transitional-interfaces-coded/
-*/
   @keyframes removed-item-animation {
     0% {
       opacity: 1;

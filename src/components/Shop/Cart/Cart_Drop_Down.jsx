@@ -12,7 +12,7 @@ const style = {
 };
 const Cart_Drop_Down = ({ cartItems, history, itemCount, dispatch }) => {
   return (
-    <div className="absolute flex flex-col w-[250px] h-[350px] top-[70px] bg-white border-2 border-black p-5 z-50 right-[10px] ">
+    <div className="absolute flex flex-col w-[270px] h-[350px] top-[70px] bg-white border-2 border-black p-5 z-50 right-[10px] ">
       <div className="cart-items flex flex-col h-[340px] justify-center   overflow-scroll">
         {itemCount ? (
           cartItems.map(
