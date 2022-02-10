@@ -12,6 +12,7 @@ import { setCurrentUser } from "./redux/user reducer/user.action";
 import CheckOutPage from "./components/Screen/CheckOutPage";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user reducer/user.selector";
+import ContactPage from "./components/Screen/ContactPage";
 function App({ setCurrentUser }) {
   const currentUser = useAuth();
   setCurrentUser(currentUser);
@@ -33,6 +34,7 @@ function App({ setCurrentUser }) {
           render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
         />
         <Route exact path="/checkout" component={CheckOutPage} />
+        <Route path="/contact" component={ContactPage} />
       </Switch>
 
       {/* </Routes> */}

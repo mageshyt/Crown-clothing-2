@@ -11,6 +11,7 @@ import {
 import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import StripeButton from "../payments/StripeButton";
 const style = {
   image: "h-[150px] w-[150px] ",
   cartItem: "flex   lg:w-[55%] w-[80%]  text-lg font-bold items-center",
@@ -26,7 +27,7 @@ const CheckOutPage = ({
   const [Active, setActive] = useState();
   // console.log({ Active });
   return (
-    <Container className=" h-screen flex items-center pt-[10px] flex-col bg-white ">
+    <Container className=" checkout h-screen flex items-center pt-[10px] flex-col bg-white ">
       <div className="flex  lg:w-[55%] w-[80%] text-xl font-semibold  pt-10   justify-around ">
         <div className="flex-[5]">Prodcut</div>
         <div className="flex-[4] hidden lg:block">description</div>
@@ -91,10 +92,20 @@ const CheckOutPage = ({
       <div
         className={totalPrice > 0 ? "divider lg:w-[65%] w-[85%]" : " hidden"}
       />
-
+      {/* Out total bill */}
       <h1 className="text-4xl text-right w-[55%] font-medium ">
         Total : {totalPrice} $
       </h1>
+      {/* Warning */}
+      <div className="mt-4 text-xl font-medium md:text-2xl text-center text-red-500">
+        *Please use the following test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+      </div>
+      {/* Payment  */}
+      <div className="pb-10 mt-4">
+        <StripeButton />
+      </div>
     </Container>
   );
 };
