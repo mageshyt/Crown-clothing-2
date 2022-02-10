@@ -8,16 +8,16 @@ import { selectCartItemCount, selectCartItems } from "./card.selector";
 import { toggleCartHidden } from "../../../redux/cart/cart.action";
 const style = {
   checkOutBtn:
-    "hover:bg-black mt-auto border-black  border-2 p-2 text-xl hover:text-white font-medium text-center cursor-pointer",
+    "hover:bg-black mt-auto border-black mb-2 border-2 p-2 text-xl hover:text-white font-medium text-center cursor-pointer",
 };
 const Cart_Drop_Down = ({ cartItems, history, itemCount, dispatch }) => {
   return (
-    <div className="absolute flex flex-col w-[270px] h-[350px] top-[70px] bg-white border-2 border-black p-5 z-50 right-[10px] ">
-      <div className="cart-items flex flex-col h-[340px] justify-center   overflow-scroll">
+    <div className="absolute flex pb-2 flex-col w-[250px] h-[370px] top-[70px] overflow-hidden   bg-white border-2 border-black p-5 z-50 right-[10px] ">
+      <div className="cart-items flex flex-col h-[340px]  overflow-scroll  ">
         {itemCount ? (
           cartItems.map(
+            // console.log("cart 🛒", item)
             (item) => <CartItem key={item.id} item={item} />
-            //   console.log("cart 🛒", item);
           )
         ) : (
           <span className="text-red-400 text-center text-xl mt-auto w-full font-semibold">
