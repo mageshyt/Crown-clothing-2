@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import CartItem from "./cart-item";
 import { createStructuredSelector } from "reselect";
 import { selectCartItemCount, selectCartItems } from "./card.selector";
-
+import { toggleCartHidden } from "../../../redux/cart/cart.action";
 const style = {
   checkOutBtn:
     "hover:bg-black mt-auto border-black  border-2 p-2 text-xl hover:text-white font-medium text-center cursor-pointer",
 };
-const Cart_Drop_Down = ({ cartItems, history, itemCount }) => {
+const Cart_Drop_Down = ({ cartItems, history, itemCount, dispatch }) => {
   return (
     <div className="absolute flex flex-col w-[250px] h-[350px] top-[70px] bg-white border-2 border-black p-5 z-50 right-[10px] ">
       <div className="cart-items flex flex-col h-[340px] justify-center   overflow-scroll">
@@ -28,9 +28,12 @@ const Cart_Drop_Down = ({ cartItems, history, itemCount }) => {
         {/* check out btn */}
         <span
           onClick={() => {
-            itemCount > 0
-              ? history.push("/checkout")
-              : alert("Please add item to cart");
+            if (itemCount > 0) {
+              history.push("/checkout");
+              dispatch(toggleCartHidden());
+            } else {
+              alert("You dont have any items");
+            }
           }}
           className={
             itemCount > 0
@@ -50,4 +53,5 @@ const mapStateToProps = (state) =>
     cartItems: selectCartItems,
     itemCount: selectCartItemCount,
   });
+
 export default connect(mapStateToProps)(withRouter(Cart_Drop_Down));
