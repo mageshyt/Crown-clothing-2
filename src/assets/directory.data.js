@@ -19,14 +19,16 @@ const Directory_Data = [
   },
   {
     title: "womens",
-    imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
+    imageUrl:
+      "https://images.pexels.com/photos/1130624/pexels-photo-1130624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     size: "large",
     id: 4,
     linkUrl: "shop/womens",
   },
   {
     title: "mens",
-    imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+    imageUrl:
+      "https://images.pexels.com/photos/175697/pexels-photo-175697.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
     size: "large",
     id: 5,
     linkUrl: "shop/mens",

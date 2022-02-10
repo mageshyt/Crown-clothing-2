@@ -11,13 +11,13 @@ import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user reducer/user.action";
 import CheckOutPage from "./components/Screen/CheckOutPage";
 import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "./redux/user reducer/ser.selector";
+import { selectCurrentUser } from "./redux/user reducer/user.selector";
 function App({ setCurrentUser }) {
   const currentUser = useAuth();
   setCurrentUser(currentUser);
   useEffect(() => {
     // history.push("/");
-  }, [currentUser]);
+  }, []);
 
   return (
     <div className="App light">

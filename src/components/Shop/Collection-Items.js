@@ -6,7 +6,6 @@ import { addItem } from "../../redux/cart/cart.action";
 const CollectionItems = ({ item, addItem }) => {
   // console.log(imageUrl);
   const { id, name, price, imageUrl } = item;
-  // console.log("clicked -->", item);
   return (
     <Container className="relative  cursor-pointer  hover:opacity-100  flex items-center flex-col">
       <div
@@ -34,13 +33,15 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(CollectionItems);
 const Container = styled.div`
   height: 450px;
-  width: 22%;
+  width: 22vw;
+
   transition: all 0.5s ease-in-out;
   .image-container {
     width: 100%;
     height: 95%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     margin-bottom: 5px;
   }
   :hover {

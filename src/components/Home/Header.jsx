@@ -10,7 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { connect } from "react-redux";
 import CartIcon from "../Shop/Cart/CartIcon";
 import Cart_Drop_Down from "../Shop/Cart/Cart_Drop_Down";
-import { selectCurrentUser } from "../../redux/user reducer/ser.selector";
+import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 import { createStructuredSelector } from "reselect";
 import { selectCartHidden } from "../Shop/Cart/card.selector";
 const style = {
@@ -34,7 +34,7 @@ const Header = ({ hidden, currentUser }) => {
   const image = faker.image.avatar();
 
   return (
-    <div className="flex   items-center justify-between h-14 bg-gray-200">
+    <div className="flex   items-center justify-between h-14 ">
       {/* Logo and left*/}
 
       <div

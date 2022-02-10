@@ -1,15 +1,20 @@
 import React from "react";
-import SHOP_DATA from "../../assets/shop.data";
-import Header from "../Home/Header";
-import CollectionPreview from "../Shop/Collection-preview";
-const ShopPage = () => {
-  const collection = SHOP_DATA;
+import { Route } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 
+import CollectionOverview from "../Shop/Colleciton-overview";
+import collectionPage from "./collectionPage";
+import styled from "styled-components";
+const ShopPage = ({ collection, match }) => {
+  console.log(match);
   return (
-    <div className="bg-gray-200">
-      {collection.map(({ id, ...otherProps }) => (
-        <CollectionPreview key={id} {...otherProps} />
-      ))}
+    <div>
+      <Route exact path={`${match.path}`} component={CollectionOverview} />
+      <Route
+        exact
+        path={`${match.path}/:collectionId`}
+        component={collectionPage}
+      />
     </div>
   );
 };

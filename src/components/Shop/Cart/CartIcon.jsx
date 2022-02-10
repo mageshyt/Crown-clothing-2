@@ -12,7 +12,6 @@ const styles = {
   Count: "absolute text-[16px] font-semibold bottom-[1px]",
 };
 const CartIcon = ({ toggleCartHidden, itemCount }) => {
-  console.log("count 🔄", itemCount);
   return (
     <Container onClick={toggleCartHidden} className={styles.CartIconContainer}>
       <RiShoppingBagLine className={styles.shoppingIcon} />
