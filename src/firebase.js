@@ -19,6 +19,7 @@ import {
   getDocs,
   getFirestore,
   onSnapshot,
+  setDoc,
 } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBYczDQOU-FTzMipU7o2q4bZpE9VrbwhIE",
@@ -80,40 +81,28 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
   const userRef = doc(db, `user`, userAuth.uid);
   const snapShot = await getDoc(userRef);
-  const collectionRef = collection(db, `user`);
-
-  // console.log(snapShot.exists());
+  // const collectionRef = collection(db, `test2`);
   //! if snapShot does not exist then created a new user
   if (!snapShot.exists()) {
     const { displayName, email } = userAuth;
-    // console.log({ displayName, email });
+    console.log({ displayName, email });
     const createdAt = new Date();
-    // console.log("additionalData", additionalData);
     try {
-      await addDoc(collectionRef, {
+      await setDoc(userRef, {
         displayName,
         email,
         createdAt,
         ...additionalData,
       });
-      // await collection(db, "user")
-      //   .doc(userAuth.uid)
-      //   .set({
-      //     displayName,
-      //     email,
-      //     createdAt,
-      //     ...additionalData,
-      //   });
     } catch (error) {
       console.log("error creating user", error.message);
     }
   } else {
     console.log("the user already exists");
   }
-  // console.log("succesfully done 😀");
-  // console.log(userRef);
   return userRef;
 };
+// createUserProfileDocument();
 // createUserProfileDocument(auth/);
 export {
   app,

@@ -83,14 +83,14 @@ const SignIn = ({ setSignUp, handleSignUp, history }) => {
         </PasswordContainer>
 
         {/* Submit */}
-        <div class="w-full mt-2 flex  justify-center flex-row gap-2">
+        <div className="w-full mt-2 flex  justify-center flex-row gap-2">
           {/* Login */}
           <div
             onClick={handleEmailSignIn}
             className="border cursor-pointer border-indigo-500 hover:bg-indigo-500 hover:text-white duration-100 ease-in-out w-3/12 text-indigo-500 center flex-row  gap-1"
           >
             <LoginIcon className="h-4 w-4 ml-2 mr-1" />
-            <button class="" type="submit">
+            <button className="" type="submit">
               Login
             </button>
           </div>

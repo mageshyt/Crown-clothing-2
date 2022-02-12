@@ -5,7 +5,7 @@ import Header from "./components/Home/Header";
 import HomePage from "./components/Screen/HomePage";
 import LoginPage from "./components/Screen/LoginPage";
 import ShopPage from "./components/Screen/ShopPage";
-import { useAuth } from "./firebase";
+import { createUserProfileDocument, useAuth } from "./firebase";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user reducer/user.action";
