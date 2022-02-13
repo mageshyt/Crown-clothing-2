@@ -1,6 +1,6 @@
 // import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
-
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
