@@ -5,20 +5,61 @@ import Header from "./components/Home/Header";
 import HomePage from "./components/Screen/HomePage";
 import LoginPage from "./components/Screen/LoginPage";
 import ShopPage from "./components/Screen/ShopPage";
-import { createUserProfileDocument, useAuth } from "./firebase";
+import {
+  addCollectionAndDocuments,
+  createUserProfileDocument,
+  db,
+  useAuth,
+} from "./firebase";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user reducer/user.action";
 import CheckOutPage from "./components/Screen/CheckOutPage";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user reducer/user.selector";
-import ContactPage from "./components/Screen/ContactPage";
-function App({ setCurrentUser }) {
+
+import { collection, onSnapshot } from "firebase/firestore";
+import { setCollectionData } from "./redux/shop/shop.actions";
+function App({ setCurrentUser, setCollectionData }) {
   const currentUser = useAuth();
   setCurrentUser(currentUser);
   useEffect(() => {
+    createUserProfileDocument(currentUser);
     // history.push("/");
-  }, []);
+  }, [currentUser]);
+  // ! fetch collection Data from Firebase
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, "collections");
+      onSnapshot(collectionRef, (snapshot) => {
+        const transFormedCollection = snapshot.docs.map((doc) => {
+          const { title, items } = doc.data();
+
+          return {
+            routerName: encodeURI(title.toLowerCase()),
+            title,
+            items,
+            id: doc.id,
+          };
+        });
+        console.log(
+          "👉🏻   ~ transFormedCollection ~ transFormedCollection",
+          transFormedCollection
+        );
+        const reduced = transFormedCollection.reduce(
+          (accumulator, collection) => {
+            accumulator[collection.title.toLowerCase()] = collection;
+            return accumulator;
+          },
+          {}
+        );
+        //! what we are doing here means means we are creating a new object and make title alone to small case & keep remaining unChange and return it like accumulator
+        console.log("👉🏻   ~ onSnapshot ~ reduced", reduced);
+        setCollectionData(reduced);
+      });
+    };
+    fetchData();
+  }, [currentUser]);
 
   return (
     <div className="App light">
@@ -34,7 +75,7 @@ function App({ setCurrentUser }) {
           render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
         />
         <Route exact path="/checkout" component={CheckOutPage} />
-        <Route path="/contact" component={ContactPage} />
+        {/* <Route path="/contact" component={ContactPage} /> */}
       </Switch>
 
       {/* </Routes> */}
@@ -48,5 +89,7 @@ const mapStateToProps = (state) =>
   });
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setCollectionData: (collectionData) =>
+    dispatch(setCollectionData(collectionData)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

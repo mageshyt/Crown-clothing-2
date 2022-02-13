@@ -6,7 +6,6 @@ import CollectionOverview from "../Shop/Colleciton-overview";
 import collectionPage from "./collectionPage";
 import styled from "styled-components";
 const ShopPage = ({ collection, match }) => {
-  console.log(match);
   return (
     <div>
       <Route exact path={`${match.path}`} component={CollectionOverview} />

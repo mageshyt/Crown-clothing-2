@@ -18,7 +18,6 @@ const SignIn = ({ history }) => {
   const [loading, setLoading] = React.useState(false);
   // ! currentUser
   const currentUser = useAuth();
-  console.log("currentUser", currentUser);
   // ! for handle sign up
   async function handleSignUp() {
     // ! it it was empty then we will not sign up

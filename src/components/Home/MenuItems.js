@@ -1,7 +1,6 @@
-import React from "react";
 // import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -36,6 +35,7 @@ const MenuItems = ({ history, directoryItem }) => {
 const mapStateToProps = createStructuredSelector({
   directoryItem: selectDirectorySection,
 });
+
 export default connect(mapStateToProps)(withRouter(MenuItems));
 const Container = styled.div`
   width: 100%;

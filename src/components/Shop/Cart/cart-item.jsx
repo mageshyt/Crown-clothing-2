@@ -6,7 +6,6 @@ const styles = {
   Container: "flex mb-4 items-center justify-around font-semibold",
 };
 const CartItem = ({ item: { imageUrl, price, name, quantity } }) => {
-  console.log("cart 🛒 -->", name);
   return (
     <div className={styles.Container}>
       <img src={imageUrl} className={styles.image} alt="item" />

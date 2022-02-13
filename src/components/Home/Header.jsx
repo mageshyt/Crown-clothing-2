@@ -20,8 +20,6 @@ const style = {
   searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
 };
 const Header = ({ hidden, currentUser }) => {
-  // const currentUser = useAuth();
-  // console.log(currentUser?.photoURL);
   const handelLogout = async () => {
     try {
       await logout();

@@ -14,12 +14,14 @@ import {
 import {
   addDoc,
   collection,
+  connectFirestoreEmulator,
   doc,
   getDoc,
   getDocs,
   getFirestore,
   onSnapshot,
   setDoc,
+  writeBatch,
 } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyBYczDQOU-FTzMipU7o2q4bZpE9VrbwhIE",
@@ -81,11 +83,9 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
   const userRef = doc(db, `user`, userAuth.uid);
   const snapShot = await getDoc(userRef);
-  // const collectionRef = collection(db, `test2`);
   //! if snapShot does not exist then created a new user
   if (!snapShot.exists()) {
     const { displayName, email } = userAuth;
-    console.log({ displayName, email });
     const createdAt = new Date();
     try {
       await setDoc(userRef, {
@@ -102,8 +102,19 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   }
   return userRef;
 };
-// createUserProfileDocument();
-// createUserProfileDocument(auth/);
+
+// ! Add collection
+const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, "collections");
+  console.log("👉🏻  collectionRef", collectionRef);
+  const batch = writeBatch(db);
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef);
+    console.log("👉🏻  newDocRef", newDocRef);
+    batch.set(newDocRef, obj);
+  });
+  return await batch.commit();
+};
 export {
   app,
   auth,
@@ -115,4 +126,5 @@ export {
   signUp,
   login,
   createUserProfileDocument,
+  addCollectionAndDocuments,
 };

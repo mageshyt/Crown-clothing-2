@@ -5,9 +5,8 @@ import { selectCollectionForPreview } from "../../redux/shop/shop.selector";
 import CollectionPreview from "./Collection-preview";
 
 const CollectionOverview = ({ collection }) => {
-  const name='mae'
   return (
-    <div className="">
+    <div>
       {collection.map(({ id, ...otherProps }) => (
         <CollectionPreview key={id} {...otherProps} />
       ))}

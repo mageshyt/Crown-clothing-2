@@ -49,9 +49,7 @@ const SignIn = ({ setSignUp, handleSignUp, history }) => {
       console.log(err);
     }
   };
-  React.useEffect(() => {
-    createUserProfileDocument(currentUser);
-  }, [currentUser]);
+  // React.useEffect(() => {}, [currentUser]);
   return (
     <div className="flex items-center justify-center w-full">
       <form

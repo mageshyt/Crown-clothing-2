@@ -94,28 +94,13 @@ const SignUp = () => {
         >
           Sign up
         </SubmitButton>
-        {/* other plat form */}
-        {/* <p className="text-lg pt-3">Or sign in with other plat form</p>
-      <SocialMediaContainer className="flex items-center ">
-        <div className={style.social}>
-          <FcGoogle onClick={signInWithGoogle} className={style.socialIcon} />
-        </div>
-        <div className={style.social}>
-          <AiOutlineTwitter className={` ${style.socialIcon} text-blue-400 `} />
-        </div>
-        <div className={style.social}>
-          <MdOutlineFacebook
-            className={` ${style.socialIcon} text-blue-400 `}
-          />
-        </div>
-      </SocialMediaContainer> */}
+    
       </form>
     </div>
   );
 };
 
 export default SignUp;
-const SocialMediaContainer = styled.div``;
 
 const EmailContainer = styled.div``;
 

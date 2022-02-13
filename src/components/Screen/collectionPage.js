@@ -4,7 +4,6 @@ import { selectCollection } from "../../redux/shop/shop.selector";
 import CollectionItems from "../Shop/Collection-Items";
 import styled from "styled-components";
 const collectionPage = ({ collection }) => {
-  console.log({ collection });
   const { title, items } = collection;
   return (
     <Container className="flex flex-col  ">

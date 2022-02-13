@@ -3,14 +3,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user reducer/user.selector";
-import { Banner } from "../Home/Banner";
-import Header from "../Home/Header";
 import MenuItems from "../Home/MenuItems";
 import styled from "styled-components";
 const HomePage = ({ currentUser }) => {
   // console.log("currentUser",);
   const WelcomeWish = (name) => {
-
     toast.success(`Welcome Back ${name || "Guest"}`);
   };
   useEffect(() => {

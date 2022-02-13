@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 import { createStructuredSelector } from "reselect";
 import { selectCartItems, selectCartTotal } from "../Shop/Cart/card.selector";
 import {
@@ -46,7 +45,6 @@ const CheckOutPage = ({
       ));
     }
   };
-  // console.log({ Active });
   return (
     <Container className=" checkout h-screen flex items-center pt-[10px] flex-col bg-white ">
       <div className="flex  lg:w-[55%] w-[80%] text-xl font-semibold  pt-10   justify-around ">

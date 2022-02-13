@@ -13,6 +13,7 @@ const persistConfig = {
   key: "root",
   storage: sessionStorage,
   whitelist: ["cart"], // ! we only want to persist cart
+  
 };
 const rootReducer = combineReducers({
   cart: cartReducer,

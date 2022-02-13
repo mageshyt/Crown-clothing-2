@@ -23,7 +23,6 @@ export const RemoveItemToCart = (cartItems, removeItem) => {
   );
   //! if our item quantity is one then we will filter it
   if (existingCartItem.quantity === 1) {
-    console.log("removing item 🔧", existingCartItem.quantity);
     return cartItems.filter((cartItem) => cartItem.id !== removeItem.id);
   }
   return cartItems.map((cartItem) =>
