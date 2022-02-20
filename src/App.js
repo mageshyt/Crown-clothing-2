@@ -1,5 +1,5 @@
-import { Link, Route, Switch, Redirect } from "react-router-dom";
-import React, { useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import React from "react";
 import "./App.css";
 import Header from "./components/Home/Header";
 import HomePage from "./components/Screen/HomePage";
@@ -44,10 +44,9 @@ function App({ setCurrentUser }) {
   );
 }
 
-const mapStateToProps = (state) =>
-  createStructuredSelector({
-    currentUser: selectCurrentUser,
-  });
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
