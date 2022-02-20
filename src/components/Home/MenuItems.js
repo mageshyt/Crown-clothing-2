@@ -115,3 +115,8 @@ const Container = styled.div`
     }
   }
 `;
+
+
+
+
+// title, size, imageUrl, id, linkUrl;

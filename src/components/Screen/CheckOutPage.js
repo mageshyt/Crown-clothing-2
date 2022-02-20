@@ -27,7 +27,6 @@ const CheckOutPage = ({
   history,
   currentUser,
 }) => {
-  console.log("currentUser", currentUser);
   const [Animation, setAnimation] = useState(false);
   const [Active, setActive] = useState();
   const SignInCheckout = () => {

@@ -5,7 +5,6 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 import MenuItems from "../Home/MenuItems";
 import styled from "styled-components";
-import { Banner } from "../Home/Banner";
 const HomePage = ({ currentUser }) => {
   // console.log("currentUser",);
   const WelcomeWish = (name) => {
@@ -26,7 +25,7 @@ const HomePage = ({ currentUser }) => {
       {/* <Header /> */}
 
       {/* <Banner /> */}
-      {/* <Banner /> */}
+
       <div className="flex items-center justify-center">
         <MenuItems />
       </div>
