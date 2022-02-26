@@ -1,5 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import { selectCollectionLoaded } from "./shop.selector";
 import { ShopType } from "./shop.type";
 
 // export const setCollectionData = (collectionData) => ({
@@ -40,6 +41,7 @@ export const fetchCollectionSuccessAsync = () => {
           };
         });
 
+        //! what we are doing here means means we are creating a new object and make title alone to small case & keep remaining unChange and return it like accumulator
         const reduced = transFormedCollection.reduce(
           (accumulator, collection) => {
             accumulator[collection.title.toLowerCase()] = collection;
@@ -47,8 +49,6 @@ export const fetchCollectionSuccessAsync = () => {
           },
           {}
         );
-        console.log("reduced -->", reduced);
-        //! what we are doing here means means we are creating a new object and make title alone to small case & keep remaining unChange and return it like accumulator
         dispatch(fetchCollectionSuccess(reduced));
         console.log("Success");
       })

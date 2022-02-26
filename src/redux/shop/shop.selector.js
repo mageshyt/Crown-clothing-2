@@ -25,5 +25,7 @@ export const selectIsCollectionFetching = createSelector(
 
 export const selectCollectionLoaded = createSelector(
   [shopData],
-  (shop) => !!shop.collections
+  (shop) => !!shop.collections //!  !! will return boolean value !!null --> false !!undefined --> false !!0 --> false !!{} --> true
+  // ! wht this dose mean?
+  // ! if there is no collection loaded, then show spinner
 );

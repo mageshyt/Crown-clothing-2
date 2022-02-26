@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selector";
-import CollectionItems from "../Shop/Collection-Items";
+import CollectionItems from "../Shop/Collection/Collection-Items";
 import styled from "styled-components";
-const collectionPage = ({ collection }) => {
+const CollectionPage = ({ collection }) => {
   const { title, items } = collection;
   return (
     <Container className="flex flex-col  ">
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
   // ! ownProps will pass all the props in the collection page including the match
   collection: selectCollection(ownProps.match.params.collectionId)(state),
 });
-export default connect(mapStateToProps)(collectionPage);
+export default connect(mapStateToProps)(CollectionPage);
 const Container = styled.div`
   @media (max-width: 700px) {
     items {

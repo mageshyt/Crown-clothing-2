@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { addItem } from "../../redux/cart/cart.action";
+import { addItem } from "../../../redux/cart/cart.action";
 
 const CollectionItems = ({ item, addItem }) => {
   // console.log(imageUrl);

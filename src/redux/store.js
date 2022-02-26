@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 // ! actions and either prevent their default
 // ! behavior or to dispatch other actions
 
-const middleware = [thunk];
+const middleware = [logger, thunk];
 export const store = createStore(rootReducer, applyMiddleware(...middleware));
 export const persistor = persistStore(store); // ! to store the data in browser
 export default { store, persistor };
