@@ -1,20 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
-import { fetchCollectionSuccessAsync } from "../../redux/shop/shop.actions";
-import {
-  selectCollectionLoaded,
-  selectIsCollectionFetching,
-} from "../../redux/shop/shop.selector";
-import CollectionOverview from "../Shop/Collection/Collection-overview";
+import { fetchCollectionStart } from "../../redux/shop/shop.actions";
+// import { fetchCollectionAsync } from "../../redux/shop/shop.saga";
 import CollectionOverviewContainer from "../Shop/Collection/Collection-overview.container";
 import CollectionPageContainer from "../Shop/Collection/CollectionContainer";
 
-const ShopPage = ({ match, fetchData }) => {
+const ShopPage = ({ match, fetchCollectionStart }) => {
   // ! fetch collection Data from Firebase
   useEffect(() => {
-    fetchData();
+    fetchCollectionStart();
   }, []);
 
   return (
@@ -34,7 +29,7 @@ const ShopPage = ({ match, fetchData }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: () => dispatch(fetchCollectionSuccessAsync()),
+  fetchCollectionStart: () => dispatch(fetchCollectionStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

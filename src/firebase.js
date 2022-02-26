@@ -106,14 +106,33 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
 // ! Add collection
 const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = collection(db, "collections");
-  console.log("👉🏻  collectionRef", collectionRef);
+
   const batch = writeBatch(db);
   objectsToAdd.forEach((obj) => {
     const newDocRef = doc(collectionRef);
-    console.log("👉🏻  newDocRef", newDocRef);
     batch.set(newDocRef, obj);
   });
   return await batch.commit();
+};
+
+// ! convertCollectionsSnapshotToMap
+const convertCollectionsSnapshotToMap = (collection) => {
+  const transFormedCollection = collection.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routerName: encodeURI(title.toLowerCase()),
+      title,
+      items,
+      id: doc.id,
+    };
+  });
+
+  //! what we are doing here means means we are creating a new object and make title alone to small case & keep remaining unChange and return it like accumulator
+  return transFormedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
 };
 export {
   app,
@@ -127,4 +146,5 @@ export {
   login,
   createUserProfileDocument,
   addCollectionAndDocuments,
+  convertCollectionsSnapshotToMap,
 };
