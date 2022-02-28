@@ -13,16 +13,22 @@ import Cart_Drop_Down from "../Shop/Cart/Cart_Drop_Down";
 import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 import { createStructuredSelector } from "reselect";
 import { selectCartHidden } from "../Shop/Cart/card.selector";
+import { signOutStart } from "../../redux/user reducer/user.action";
+import { clearCart } from "../../redux/cart/cart.action";
 const style = {
   searchBarContainer: `bg-gray-200 w-full  focus:outline-none focus:border-gray-600 transition duration-150 ease-in-out`,
   searchBar: `flex flex-1 hidden sm:flex mx-[0.8rem] w-max-[400px] items-center bg-[#cecfd2] rounded-[0.8rem] hover:bg-[#bfbfc1]`,
   searchInput: `h-[2.6rem] w-full border-0 bg-transparent outline-0 ring-0 px-2 pl-0 text-black placeholder:text-[#767676]`,
   searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
 };
-const Header = ({ hidden, currentUser }) => {
+const Header = ({ hidden, signOutStart, clearCart }) => {
+  const currentUser = useAuth();
+
+  // ! sign out
   const handelLogout = async () => {
     try {
-      await logout();
+      await signOutStart();
+      clearCart();
       console.log("logout");
     } catch (err) {
       alert(err);
@@ -97,7 +103,12 @@ const mapStateToProps = (state) =>
     hidden: selectCartHidden,
   });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  signOutStart: () => dispatch(signOutStart()),
+  clearCart: () => dispatch(clearCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 // {
 //   /* login and logo */

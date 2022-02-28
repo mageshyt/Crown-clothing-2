@@ -1,5 +1,3 @@
-import { clearItemFromCart } from "./cart.action";
-
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   // ! we are checking the added item in the cart are not
   const existingCartItem = cartItems.find(

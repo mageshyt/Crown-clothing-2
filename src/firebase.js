@@ -43,14 +43,16 @@ const signUp = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 // ! login with google
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((re) => console.log("successfully signed in with google", re))
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// const signInWithGoogle = () => {
+//   const provider = new GoogleAuthProvider();
+//   signInWithPopup(auth, provider)
+//     .then((re) => console.log("successfully signed in with google", re))
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+// Provider
+const GoogleProvider = () => new GoogleAuthProvider();
 // ! login with mail and password
 const login = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
@@ -140,7 +142,7 @@ export {
   logout,
   db,
   useAuth,
-  signInWithGoogle,
+  GoogleProvider,
   analytics,
   signUp,
   login,

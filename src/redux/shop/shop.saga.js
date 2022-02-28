@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put, takeEvery } from "redux-saga/effects";
 import { convertCollectionsSnapshotToMap, db } from "../../firebase";
 import { fetchCollectionFailure, fetchCollectionSuccess } from "./shop.actions";
 import { ShopType } from "./shop.type";

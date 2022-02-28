@@ -5,7 +5,7 @@ import Header from "./components/Home/Header";
 import HomePage from "./components/Screen/HomePage";
 import LoginPage from "./components/Screen/LoginPage";
 import ShopPage from "./components/Screen/ShopPage";
-import { createUserProfileDocument, useAuth } from "./firebase";
+import { useAuth } from "./firebase";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user reducer/user.action";
@@ -18,10 +18,7 @@ function App({ setCurrentUser }) {
   const currentUser = useAuth();
   // ! update the current user for reducer
   setCurrentUser(currentUser);
-  useEffect(() => {
-    createUserProfileDocument(currentUser);
-    // history.push("/");
-  }, [currentUser]);
+
   return (
     <div className="App light">
       <Header />

@@ -1,6 +1,3 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
-import { selectCollectionLoaded } from "./shop.selector";
 import { ShopType } from "./shop.type";
 
 // export const setCollectionData = (collectionData) => ({

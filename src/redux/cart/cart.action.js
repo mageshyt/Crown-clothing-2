@@ -23,3 +23,8 @@ export const clearItemFromCart = (item) => ({
 export const order_completed = () => ({
   type: CartActionTypes.ORDER_COMPLETED,
 });
+
+export const clearCart = () => ({
+  type: CartActionTypes.CLEAR_CART,
+});
+

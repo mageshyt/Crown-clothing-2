@@ -4,19 +4,18 @@ import {
   LockClosedIcon,
   LoginIcon,
   PencilAltIcon,
-  UserCircleIcon,
 } from "@heroicons/react/outline";
-import {
-  createUserProfileDocument,
-  login,
-  signInWithGoogle,
-  signUp,
-  useAuth,
-} from "../../firebase";
+import { login } from "../../firebase";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineFacebook } from "react-icons/md";
 import { AiOutlineTwitter } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
+import { connect } from "react-redux";
+import {
+  emailSignInStart,
+  EmailSignInStart,
+  googleSignInStart,
+} from "../../redux/user reducer/user.action";
 
 const style = {
   input: `outline-none font-bold w-full bg-transparent border-none`,
@@ -25,29 +24,26 @@ const style = {
   social: `border-[2px] rounded-full m-2 border-gray-900 p-1`,
 };
 
-const SignIn = ({ setSignUp, handleSignUp, history }) => {
+const SignIn = ({ handleSignUp, googleSignInStart, emailSignInStart }) => {
   // * use ref to get user mail and password
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
-  const currentUser = useAuth();
   // !sign with google in handel
   const handleGoogleSignIn = async () => {
     try {
-      signInWithGoogle();
+      googleSignInStart();
     } catch (err) {
       alert(err);
       console.log(err);
     }
   };
   // !sign with email in handel
-  const handleEmailSignIn = async () => {
-    // console.log(emailRef.current.value, passwordRef.current.value);
-    try {
-      await login(emailRef.current.value, passwordRef.current.value);
-    } catch (err) {
-      alert(err);
-      console.log(err);
-    }
+  const handleEmailSignIn = async (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    console.log(email, password);
+    emailSignInStart(email, password);
   };
   // React.useEffect(() => {}, [currentUser]);
   return (
@@ -94,7 +90,7 @@ const SignIn = ({ setSignUp, handleSignUp, history }) => {
           </div>
           {/* sign up */}
           <div
-            //   disabled={loading || currentUser}
+            // disabled={loading}
             onClick={handleSignUp}
             className="signup "
           >
@@ -126,12 +122,14 @@ const SignIn = ({ setSignUp, handleSignUp, history }) => {
     </div>
   );
 };
-
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(emailSignInStart({ email, password })),
+});
+export default connect(null, mapDispatchToProps)(SignIn);
 const SocialMediaContainer = styled.div``;
 
 const EmailContainer = styled.div``;
 
 const PasswordContainer = styled.div``;
-
-const SubmitButton = styled.div``;

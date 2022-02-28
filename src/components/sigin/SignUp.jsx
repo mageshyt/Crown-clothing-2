@@ -1,17 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  AtSymbolIcon,
-  LockClosedIcon,
-  LoginIcon,
-  PencilAltIcon,
-  UserCircleIcon,
-} from "@heroicons/react/outline";
+import { LockClosedIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { createUserProfileDocument, signUp, useAuth } from "../../firebase";
-import { FcGoogle } from "react-icons/fc";
-import { MdOutlineFacebook } from "react-icons/md";
-import { AiOutlineTwitter } from "react-icons/ai";
+
 import { MdEmail } from "react-icons/md";
+import { signUpStart } from "../../redux/user reducer/user.action";
+import { connect } from "react-redux";
 const style = {
   input: `outline-none w-full bg-gray-200 font-bold border-none`,
   inputContainer: `w-full p-2 max-w-[400px]  bg-gray-200   h-[55px]  my-4 rounded-full flex items-center `,
@@ -19,33 +13,28 @@ const style = {
   social: `border-[2px] rounded-full m-2 border-gray-900 p-1`,
 };
 
-const SignUp = () => {
+const SignUp = ({ signUpStart }) => {
   // * use ref to get user mail and password
   const emailRef = React.createRef();
   const passwordRef = React.createRef();
   const displayName = React.createRef();
   const [loading, setLoading] = React.useState(false);
   const currentUser = useAuth();
-  async function handleSignUp() {
-    // ! it it was empty then we will not sign up
-    setLoading(true);
+  async function handleSignUp(event) {
+    event.preventDefault();
 
-    try {
-      await signUp(emailRef.current.value, passwordRef.current.value);
-    } catch {
-      console.log({
-        emailRef: emailRef.current.value,
-        passwordRef: passwordRef.current.value,
-      });
-      alert("Error!");
-    }
+    // ! it  was empty then we will not sign up
+    setLoading(true);
+    const email = emailRef.current.value;
+
+    const password = passwordRef.current.value;
+    const name = displayName.current.value;
+    console.log(email, password);
+    signUpStart(email, password, name);
     setLoading(false);
-    await createUserProfileDocument(await currentUser);
+    // await createUserProfileDocument(await currentUser);
   }
-  React.useEffect(() => {
-    const Name = displayName.current.value;
-    createUserProfileDocument(currentUser, { displayName: Name });
-  }, [currentUser]);
+
   return (
     <div className="flex items-center justify-center w-full">
       <form
@@ -94,13 +83,16 @@ const SignUp = () => {
         >
           Sign up
         </SubmitButton>
-    
       </form>
     </div>
   );
 };
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => ({
+  signUpStart: (email, password, name) =>
+    dispatch(signUpStart({ email, password, name })),
+});
+export default connect(null, mapDispatchToProps)(SignUp);
 
 const EmailContainer = styled.div``;
 
