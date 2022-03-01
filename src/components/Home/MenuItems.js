@@ -1,42 +1,54 @@
 // import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import { selectDirectorySection } from "../../redux/directory/directory.selector";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const MenuItems = ({ history, directoryItem }) => {
+const MenuItems = () => {
+  const directoryItem = useSelector(selectDirectorySection);
   return (
     <Container className="container mt-10  ">
       {directoryItem.map(({ title, size, imageUrl, id, linkUrl }) => {
         return (
-          <div
-            onClick={() => history.push(linkUrl)}
-            key={id}
-            className={`${size}  menu-item `}
-          >
-            <div
-              className="background-image "
-              style={{ backgroundImage: `url(${imageUrl})` }}
-            />
-            {/* text */}
-            <div className="content ">
-              <h2 className=" uppercase text-xl">{title}</h2>
-              <h2>SHOP NOW</h2>
-            </div>
-          </div>
+          <RenderMenuItem
+            linkUrl={linkUrl}
+            id={id}
+            size={size}
+            imageUrl={imageUrl}
+            title={title}
+          />
         );
       })}
     </Container>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  directoryItem: selectDirectorySection,
-});
+export default MenuItems;
 
-export default connect(mapStateToProps)(withRouter(MenuItems));
+function RenderMenuItem({ linkUrl, id, size, imageUrl, title }) {
+  const history = useHistory();
+  return (
+    <div
+      onClick={() => history.push(linkUrl)}
+      key={id}
+      className={`${size}  menu-item `}
+    >
+      <div
+        className="background-image "
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+      />
+      {/* text */}
+      <div className="content ">
+        <h2 className=" uppercase text-xl">{title}</h2>
+        <h2>SHOP NOW</h2>
+      </div>
+    </div>
+  );
+}
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -115,8 +127,5 @@ const Container = styled.div`
     }
   }
 `;
-
-
-
 
 // title, size, imageUrl, id, linkUrl;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
@@ -8,10 +9,11 @@ import CollectionPageContainer from "../Shop/Collection/CollectionContainer";
 const ShopPage = ({ match }) => {
   const dispatch = useDispatch();
   const fetchCollection = () => dispatch(fetchCollectionStart());
+
   // ! fetch collection Data from Firebase
   useEffect(() => {
     fetchCollection();
-  }, []);
+  }, [fetchCollection]);
 
   return (
     <div>
