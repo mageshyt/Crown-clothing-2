@@ -2,17 +2,12 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-// import app from "../../firebase";
-import faker from "@faker-js/faker";
-import { useAuth, logout } from "../../firebase";
 import { AiOutlineSearch } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import { connect } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
 import CartIcon from "../Shop/Cart/CartIcon";
 import Cart_Drop_Down from "../Shop/Cart/Cart_Drop_Down";
-import { selectCurrentUser } from "../../redux/user reducer/user.selector";
-import { createStructuredSelector } from "reselect";
-import { selectCartHidden } from "../../redux/cart/card.selector";
+import { useAuth } from "../../firebase";
 import { signOutStart } from "../../redux/user reducer/user.action";
 import { clearCart } from "../../redux/cart/cart.action";
 const style = {
@@ -21,21 +16,26 @@ const style = {
   searchInput: `h-[2.6rem] w-full border-0 bg-transparent outline-0 ring-0 px-2 pl-0 text-black placeholder:text-[#767676]`,
   searchBarIcon: `text-xl text-gray-600 ml-2 mr-2`,
 };
-const Header = ({ hidden, signOutStart, clearCart }) => {
+const Header = () => {
   const currentUser = useAuth();
-
+  const hidden = useSelector((state) => state.cart.hidden);
+  // clear cart
+  const dispatch = useDispatch();
+  const signOutStartMethod = () => dispatch(signOutStart());
+  const clearCartItem = () => dispatch(clearCart());
   // ! sign out
+  console.log(hidden);
   const handelLogout = async () => {
     try {
-      await signOutStart();
-      clearCart();
+      await signOutStartMethod();
+      clearCartItem();
       console.log("logout");
     } catch (err) {
       alert(err);
     }
   };
 
-  const image = faker.image.avatar();
+  // const image = faker.image.avatar();
 
   return (
     <div className="flex   items-center justify-between h-14 ">
@@ -49,42 +49,15 @@ const Header = ({ hidden, signOutStart, clearCart }) => {
           <img src="/images/crown.svg" alt="logo " />
         </Link>
       </div>
-      {/* searchbar middle */}
+      {/* search bar middle */}
       <SearchBar />
       {/* header section */}
-      <div className="sections  pl-8 font-bold flex text-lg mr-2 items-center   flex-row space-x-8">
-        {/* list */}
-        <div className="flex hidden md:inline-flex space-x-2">
-          <Link to="/">
-            <h2>Home</h2>
-          </Link>
-          <Link to="/shop">
-            <h2>Shop</h2>
-          </Link>
-          <Link to="/contact">
-            <h2>Contact</h2>
-          </Link>
-          {/* login */}
-        </div>
-      </div>
-      <div>
-        <div className="flex mr-2  text-lg font-bold items-center space-x-2">
-          {!currentUser ? (
-            <Link to="/signin">
-              <h2 className="cursor-pointer">sign in</h2>
-            </Link>
-          ) : (
-            <h2 onClick={handelLogout} className="cursor-pointer">
-              sign out
-            </h2>
-          )}
-          {/* Cart icon */}
-
-          <CartIcon />
-        </div>
-        <div>{hidden ? null : <Cart_Drop_Down />}</div>
-        {/* <Cart_Drop_Down /> */}
-      </div>
+      <NavItems />
+      <UserIconAndCart
+        hidden={hidden}
+        handelLogout={handelLogout}
+        currentUser={currentUser}
+      />
     </div>
   );
 };
@@ -96,37 +69,47 @@ const SearchBar = () => (
   </div>
 );
 
-const mapStateToProps = (state) =>
-  createStructuredSelector({
-    // ! we are setting the currentUser to the state
-    currentUser: selectCurrentUser,
-    hidden: selectCartHidden,
-  });
+export default Header;
 
-const mapDispatchToProps = (dispatch) => ({
-  signOutStart: () => dispatch(signOutStart()),
-  clearCart: () => dispatch(clearCart()),
-});
+const UserIconAndCart = ({ currentUser, handelLogout, hidden }) => {
+  return (
+    <div>
+      <div className="flex mr-2  text-lg font-bold items-center space-x-2">
+        {!currentUser ? (
+          <Link to="/signin">
+            <h2 className="cursor-pointer">sign in</h2>
+          </Link>
+        ) : (
+          <h2 onClick={handelLogout} className="cursor-pointer">
+            sign out
+          </h2>
+        )}
+        {/* Cart icon */}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+        <CartIcon />
+      </div>
+      <div>{hidden ? null : <Cart_Drop_Down />}</div>
+      {/* <Cart_Drop_Down /> */}
+    </div>
+  );
+};
 
-// {
-//   /* login and logo */
-// }
-// <div className="login-section flex flex-row  hidden  sm:visible ">
-//   {/* onclick it push to sign in  page*/}
-//   {!currentUser ? (
-//     <Link to="/signin">
-//       {/* <CgProfile className="text-3xl text-gray-600 cursor-pointer" /> */}
-//       <h2>sign in</h2>
-//     </Link>
-//   ) : (
-//     // <img
-//     //   src={currentUser?.photoURL || image}
-//     //   onClick={handelLogout}
-//     //   className="h-10 cursor-pointer w-10 rounded-full"
-//     //   alt="profile"
-//     // />
-//     <h2>sign out</h2>
-//   )}
-// </div>;
+const NavItems = () => {
+  return (
+    <div className="sections  pl-8 font-bold flex text-lg mr-2 items-center   flex-row space-x-8">
+      {/* list */}
+      <div className=" hidden md:flex space-x-2">
+        <Link to="/">
+          <h2>Home</h2>
+        </Link>
+        <Link to="/shop">
+          <h2>Shop</h2>
+        </Link>
+        <Link to="/contact">
+          <h2>Contact</h2>
+        </Link>
+        {/* login */}
+      </div>
+    </div>
+  );
+};
