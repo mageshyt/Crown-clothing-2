@@ -1,10 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import {
-  selectCollectionLoaded,
-  selectIsCollectionFetching,
-} from "../../../redux/shop/shop.selector";
+import { selectIsCollectionFetching } from "../../../redux/shop/shop.selector";
 
 import WithSpinner from "../../withspinner/WithSpinner";
 import CollectionOverview from "./Collection-overview";

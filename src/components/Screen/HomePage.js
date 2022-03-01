@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 import MenuItems from "../Home/MenuItems";
 import styled from "styled-components";
-const HomePage = ({ currentUser }) => {
+import { useSelector } from "react-redux";
+const HomePage = () => {
   // console.log("currentUser",);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const WelcomeWish = (name) => {
     toast.success(`Welcome Back ${name || "Guest"}`);
   };
   useEffect(() => {
     const name = currentUser?.displayName;
+
     if (currentUser !== null) {
-      WelcomeWish(name);
+      WelcomeWish(name || currentUser.name);
     }
   }, [currentUser]);
 
@@ -32,9 +32,6 @@ const HomePage = ({ currentUser }) => {
     </Container>
   );
 };
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-});
 
 const Container = styled.div`
   .toaster {
@@ -42,4 +39,4 @@ const Container = styled.div`
       sans-serif;
   }
 `;
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

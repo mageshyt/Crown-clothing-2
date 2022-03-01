@@ -1,34 +1,40 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectCartItems, selectCartTotal } from "../Shop/Cart/card.selector";
+import { selectCartItems, selectCartTotal } from "../../redux/cart/card.selector";
 import {
   addItem,
   clearItemFromCart,
   removeItem,
 } from "../../redux/cart/cart.action";
-import { AiFillDelete, AiOutlineDelete } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import styled from "styled-components";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import StripeButton from "../payments/StripeButton";
 import toast, { Toaster } from "react-hot-toast";
 import { withRouter } from "react-router-dom";
-import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 const style = {
   image: "h-[190px] w-[160px] ",
   cartItem: "flex   lg:w-[55%] w-[80%]  text-lg font-bold items-center",
 };
-const CheckOutPage = ({
-  cartItems,
-  totalPrice,
-  addItem,
-  removeItem,
-  clearItemFromCart,
-  history,
-  currentUser,
-}) => {
+const CheckOutPage = ({ history }) => {
   const [Animation, setAnimation] = useState(false);
   const [Active, setActive] = useState();
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  // ! cart items
+  const cartItems = useSelector(selectCartItems);
+  // !Total price
+  const totalPrice = useSelector(selectCartTotal);
+
+  //! add items
+  const dispatch = useDispatch();
+  const addItemToCart = (item) => dispatch(addItem(item));
+  //! remove items
+  const removeItemFromCart = (item) => dispatch(removeItem(item));
+  //! clear item
+  const clearItemFromCart = (item) => dispatch(clearItemFromCart(item));
+
   const SignInCheckout = () => {
     if (currentUser === null) {
       toast((t) => (
@@ -78,13 +84,13 @@ const CheckOutPage = ({
             <div className="flex items-center space-x-2">
               {/* removing item */}
               <MdArrowBackIosNew
-                onClick={() => removeItem(cartItem)}
+                onClick={() => removeItemFromCart(cartItem)}
                 className="text-black cursor-pointer"
               />
               <span>{cartItem.quantity}</span>
               {/* adding item */}
               <MdArrowForwardIos
-                onClick={() => addItem(cartItem)}
+                onClick={() => addItemToCart(cartItem)}
                 className="text-black  cursor-pointer"
               />
             </div>
@@ -149,23 +155,7 @@ const CheckOutPage = ({
   );
 };
 
-const mapStateToProps = (state) =>
-  createStructuredSelector({
-    cartItems: selectCartItems,
-    totalPrice: selectCartTotal,
-    currentUser: selectCurrentUser,
-  });
-
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
-  clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(CheckOutPage));
+export default withRouter(CheckOutPage);
 
 const Container = styled.div`
   .item {

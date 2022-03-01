@@ -12,7 +12,7 @@ import CartIcon from "../Shop/Cart/CartIcon";
 import Cart_Drop_Down from "../Shop/Cart/Cart_Drop_Down";
 import { selectCurrentUser } from "../../redux/user reducer/user.selector";
 import { createStructuredSelector } from "reselect";
-import { selectCartHidden } from "../Shop/Cart/card.selector";
+import { selectCartHidden } from "../../redux/cart/card.selector";
 import { signOutStart } from "../../redux/user reducer/user.action";
 import { clearCart } from "../../redux/cart/cart.action";
 const style = {

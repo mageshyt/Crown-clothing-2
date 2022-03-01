@@ -1,5 +1,4 @@
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
 import { withRouter } from "react-router-dom";
 
 const ContactPage = ({ history }) => {

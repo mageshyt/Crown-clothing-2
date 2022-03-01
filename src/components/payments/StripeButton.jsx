@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { createStructuredSelector } from "reselect";
 import { order_completed } from "../../redux/cart/cart.action";
-import { selectCartTotal } from "../Shop/Cart/card.selector";
+import { selectCartTotal } from "../../redux/cart/card.selector";
 
 const StripeButton = ({ totalPrice, order_completed }) => {
   const priceForStripe = totalPrice * 100;

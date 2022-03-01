@@ -1,9 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { selectCollection } from "../../redux/shop/shop.selector";
 import CollectionItems from "../Shop/Collection/Collection-Items";
 import styled from "styled-components";
-const CollectionPage = ({ collection }) => {
+import { useParams } from "react-router-dom";
+const CollectionPage = () => {
+  const params = useParams();
+  // !set collection
+  console.log("params", params);
+  const collection = useSelector((state) =>
+    selectCollection(params.collectionId)(state)
+  );
   const { title, items } = collection;
   return (
     <Container className="flex flex-col  ">

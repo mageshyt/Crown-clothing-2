@@ -15,10 +15,14 @@ import { selectCurrentUser } from "./redux/user reducer/user.selector";
 
 function App({ setCurrentUser }) {
   // ! get our current user
+
   const currentUser = useAuth();
   // ! update the current user for reducer
-  setCurrentUser(currentUser);
-
+  useEffect(() => {
+    // ! if any changes in current user then trigger the function
+    console.log("current user", currentUser);
+    setCurrentUser(currentUser);
+  }, [currentUser, setCurrentUser]);
   return (
     <div className="App light">
       <Header />

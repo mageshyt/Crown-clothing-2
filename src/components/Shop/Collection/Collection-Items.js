@@ -1,11 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addItem } from "../../../redux/cart/cart.action";
 
-const CollectionItems = ({ item, addItem }) => {
+const CollectionItems = ({ item }) => {
   // console.log(imageUrl);
-  const { id, name, price, imageUrl } = item;
+  const dispatch = useDispatch();
+  const addItemToCart = (item) => dispatch(addItem(item));
+
+  const { name, price, imageUrl } = item;
   return (
     <Container className="relative  cursor-pointer  hover:opacity-100  flex items-center flex-col">
       <div
@@ -18,7 +21,7 @@ const CollectionItems = ({ item, addItem }) => {
       </div>
       {/* Shop how btn */}
       <div
-        onClick={() => addItem(item)}
+        onClick={() => addItemToCart(item)}
         className="absolute shop-btn bottom-20 hover:border-black hover:text-white bg-white w-[70%] text-center hidden  py-2 border-[1px] hover:border-white hover:bg-black "
       >
         <span className="font-medium text-xl k ">ADD TO CART</span>
@@ -26,11 +29,8 @@ const CollectionItems = ({ item, addItem }) => {
     </Container>
   );
 };
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-});
 
-export default connect(null, mapDispatchToProps)(CollectionItems);
+export default CollectionItems;
 const Container = styled.div`
   height: 450px;
   width: 22vw;
