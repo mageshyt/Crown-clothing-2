@@ -82,13 +82,13 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   const snapShot = await getDoc(userRef);
   const collectionRef = collection(db, `user`);
 
-  console.log(snapShot.exists());
+  // console.log(snapShot.exists());
   //! if snapShot does not exist then created a new user
   if (!snapShot.exists()) {
     const { displayName, email } = userAuth;
     // console.log({ displayName, email });
     const createdAt = new Date();
-    console.log("additionalData", additionalData);
+    // console.log("additionalData", additionalData);
     try {
       await addDoc(collectionRef, {
         displayName,
@@ -112,7 +112,6 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   }
   // console.log("succesfully done 😀");
   // console.log(userRef);
-  console.log("id", userAuth.uid); // const snapShot = await
   return userRef;
 };
 // createUserProfileDocument(auth/);

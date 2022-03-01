@@ -9,7 +9,7 @@ import {
 import { FaGoogle } from "react-icons/fa";
 import styled from "styled-components";
 import { signInWithGoogle, signUp, useAuth } from "../../firebase";
-import { withRouter } from "react-router";
+// import { withRouter } from "react-router";
 const SignIn = ({ history }) => {
   // * use ref to get user mail and password
   const emailRef = React.createRef();
@@ -29,7 +29,6 @@ const SignIn = ({ history }) => {
     } catch {
       alert("Error!");
     }
-    history.push("/");
 
     setLoading(false);
   }
@@ -109,7 +108,7 @@ const SignIn = ({ history }) => {
   );
 };
 
-export default withRouter(SignIn);
+export default SignIn;
 const Container = styled.div`
   .🖖🏻 {
     width: 350px;

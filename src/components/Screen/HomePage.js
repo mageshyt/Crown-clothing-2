@@ -2,6 +2,7 @@ import React from "react";
 import { Banner } from "../Home/Banner";
 import Header from "../Home/Header";
 import MenuItems from "../Home/MenuItems";
+
 const HomePage = () => {
   return (
     <div className="h-screen">

@@ -13,10 +13,14 @@
 }
 
 body {
-  background-color: #e5e7eb;
+  /* background-color: #e5e7eb; */
+  -webkit-user-select: none;
 }
 
 @layer components {
+  .divider {
+    @apply border-b-[1px] h-1 border-gray-300;
+  }
   .center {
     @apply flex items-center justify-center;
   }

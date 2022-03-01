@@ -1,15 +1,19 @@
 import React from "react";
-import Directory_Data from "../../assets/directory.data";
+// import Directory_Data from "../../assets/directory.data";
 import styled from "styled-components";
-import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectDirectorySection } from "../../redux/directory/directory.selector";
 
-const MenuItems = ({ history }) => {
+const MenuItems = ({ history, directoryItem }) => {
   return (
     <Container className="container mt-10  ">
-      {Directory_Data.map(({ title, size, imageUrl, id, linkUrl }) => {
+      {directoryItem.map(({ title, size, imageUrl, id, linkUrl }) => {
         return (
           <div
-            onClick={() => history.push("/shop")}
+            onClick={() => history.push(linkUrl)}
             key={id}
             className={`${size}  menu-item `}
           >
@@ -29,7 +33,10 @@ const MenuItems = ({ history }) => {
   );
 };
 
-export default withRouter(MenuItems);
+const mapStateToProps = createStructuredSelector({
+  directoryItem: selectDirectorySection,
+});
+export default connect(mapStateToProps)(withRouter(MenuItems));
 const Container = styled.div`
   width: 100%;
   display: flex;

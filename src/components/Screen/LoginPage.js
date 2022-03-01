@@ -1,7 +1,6 @@
 import React from "react";
 import SignIn from "../sigin/SignIn-a";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
 import AnimatedLogin from "../sigin/AnimatedLogin";
 import { useAuth } from "../../firebase";
 const LoginPage = () => {
@@ -17,4 +16,4 @@ const LoginPage = () => {
   );
 };
 
-export default withRouter(LoginPage);
+export default LoginPage;
