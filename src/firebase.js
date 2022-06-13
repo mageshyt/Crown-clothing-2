@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import React from "react";
 import {
   getAuth,
-  signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -12,14 +11,10 @@ import {
 } from "firebase/auth";
 // get fire store
 import {
-  addDoc,
   collection,
-  connectFirestoreEmulator,
   doc,
   getDoc,
-  getDocs,
   getFirestore,
-  onSnapshot,
   setDoc,
   writeBatch,
 } from "firebase/firestore";

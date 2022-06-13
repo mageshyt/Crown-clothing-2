@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { LockClosedIcon, UserCircleIcon } from "@heroicons/react/outline";
-import { createUserProfileDocument, signUp, useAuth } from "../../firebase";
+import { useAuth } from "../../firebase";
 
 import { MdEmail } from "react-icons/md";
 import { signUpStart } from "../../redux/user reducer/user.action";
